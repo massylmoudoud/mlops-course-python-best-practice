@@ -9,7 +9,7 @@ This is a script that loads some images and perdict their class using a pre trai
 """
 
 
-class imageData:
+class ImageData:
     """
     Data loader class
     """
@@ -20,7 +20,7 @@ class imageData:
         """
         self.D = DIR
 
-    def LoadImages(self):
+    def load_images(self):
         """
         Load the images in the folder with extension jpg or png  and return them in a list
         """
@@ -31,7 +31,7 @@ class imageData:
         return imgs
 
 
-class imgProcess:
+class ImgProcess:
     """
     Image processing class
     """
@@ -43,7 +43,7 @@ class imgProcess:
         """
         self.s = size
 
-    def resize_and_GRAY(self, img_list: list) -> list:
+    def resize_and_gray(self, img_list: list) -> list:
         """
         Performs the processings of the images:
             Reshape the a square of specifyed size (from init )
@@ -69,9 +69,9 @@ class imgProcess:
         return p_images
 
 
-class predictor:
+class Predictor:
     """
-    Calls for applying the predictor network on the images
+    Calls for applying the Predictor network on the images
     """
 
     def __init__(self):
@@ -81,7 +81,7 @@ class predictor:
         self.mdl = models.resnet18(weights=ResNet18_Weights.DEFAULT)
         self.mdl.eval()
 
-    def Predict_Img(self, processed_images: list) -> list[int]:
+    def predict_img(self, processed_images: list) -> list[int]:
         """
         Predict the class of each image with the given network model
         Inputs:
@@ -98,17 +98,17 @@ class predictor:
 
 if __name__ == "__main__":
     image_path = "images/"
-    loader = imageData(image_path)
-    images = loader.LoadImages()
+    loader = ImageData(image_path)
+    images = loader.load_images()
 
     print("Original image size", images[0].size)
     print("Original image type", type(images[0]))
     image_new_size = 256
-    processor = imgProcess(image_new_size)
-    processed_images = processor.resize_and_GRAY(images)
+    processor = ImgProcess(image_new_size)
+    processed_images = processor.resize_and_gray(images)
 
     print(processed_images[0].shape)
 
-    pred = predictor()
-    results = pred.Predict_Img(processed_images)
+    pred = Predictor()
+    results = pred.predict_img(processed_images)
     print("The predicted class is ", results)
