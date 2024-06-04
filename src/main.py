@@ -18,10 +18,10 @@ class imageData:
 
 
 class imgProcess:
-    def __init__(self, size : int):
+    def __init__(self, size: int):
         self.s = size
 
-    def resize_and_GRAY(self, img_list : list)-> list:
+    def resize_and_GRAY(self, img_list: list) -> list:
         p_images = []
         for img in img_list:
             t = transforms.Compose(
@@ -55,15 +55,15 @@ if __name__ == "__main__":
     image_path = "images/"
     loader = imageData(image_path)
     images = loader.LoadImages()
-    
+
     print("Original image size", images[0].size)
     print("Original image type", type(images[0]))
     image_new_size = 256
     processor = imgProcess(image_new_size)
     processed_images = processor.resize_and_GRAY(images)
-    
+
     print(processed_images[0].shape)
-    
+
     pred = predictor()
     results = pred.Predict_Img(processed_images)
     print("The predicted class is ", results)
