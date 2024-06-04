@@ -1,6 +1,5 @@
-import numpy as np
 import PIL
-from src.main import *
+from src.main import imageData, imgProcess
 
 
 def test_LoadImages():
@@ -24,4 +23,4 @@ def test_resize_and_GRAY():
     processor = imgProcess(image_new_size)
     processed_images = processor.resize_and_GRAY(images)
 
-    assert processed_images[0].shape == torch.Size([3, 256, 256])
+    assert processed_images[0].shape == (3, 256, 256)
